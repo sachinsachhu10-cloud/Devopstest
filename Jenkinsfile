@@ -2,13 +2,8 @@ pipeline {
     agent any
 
     stages {
-        stage('Git Clone') {
-            steps {
-                git 'https://github.com/sachinsachhu10-cloud/Devopstest.git/java-cicd'
-            }
-        }
 
-        stage('Maven Build') {
+        stage('Build') {
             steps {
                 sh 'mvn clean package'
             }
@@ -16,16 +11,13 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t java-cicd-app .'
+                sh 'docker build -t my-app .'
             }
         }
 
-        stage('Kubernetes Deploy') {
+        stage('Deploy') {
             steps {
-                sh '''
-                kubectl apply -f deployment.yaml
-                kubectl apply -f service.yaml
-                '''
+                echo 'Deployment step here'
             }
         }
     }
